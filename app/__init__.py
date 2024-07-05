@@ -1,4 +1,5 @@
 from flask import Flask
+from .util import is_connected
 
 app = Flask(__name__)
 
