@@ -6,8 +6,6 @@ by fetching data from a popular stock ticker using yFinance.
 
 Additionally, it will provide checks (in the future) for port openings 
 and services to ensure both Node.js and Flask are operating as expected.
-
-Author: Jasper Tan Zu Xiang
 """
 
 import yfinance as yf
