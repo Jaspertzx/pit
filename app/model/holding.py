@@ -4,6 +4,7 @@ Holding object
 This object will encapsulate one of the user's holdings. 
 Will be part of the user's portfolio
 """
+import pytz
 import yfinance as yf
 import pandas as pd
 from datetime import datetime
@@ -37,14 +38,17 @@ class Holding:
         return stock.history(period="1d")['Close'][0]
 
     def get_dividends(self):
-        """
-        Fetch the total dividends received since the purchase date.
-
-        :return: float, the total dividends received
-        """
         stock = yf.Ticker(self.ticker)
         dividends = stock.dividends
+
+        # Convert purchase_date to timezone-aware datetime
         purchase_date_obj = datetime.strptime(self.purchase_date, "%Y-%m-%d")
+        purchase_date_obj = pytz.timezone('America/New_York').localize(purchase_date_obj)
+        
+        # Ensure dividends index is timezone-aware
+        if dividends.index.tz is None:
+            dividends.index = dividends.index.tz_localize('America/New_York')
+        
         dividends_since_purchase = dividends[dividends.index >= purchase_date_obj]
         total_dividends = dividends_since_purchase.sum()
         return total_dividends
