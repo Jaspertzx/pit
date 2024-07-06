@@ -1,13 +1,19 @@
 from flask import Flask, request, jsonify
 from app import app
 from .util import is_connected
+from .util import DataReader
 from app.model.portfolio import Portfolio
 from app.model.holding import Holding
 
 app = Flask(__name__)
 
-# Initialize the portfolio
-portfolio = Portfolio()
+# Initialize the data reader
+data_reader = DataReader()
+
+# Try to load the portfolio from file
+portfolio = data_reader.read_portfolio()
+if portfolio is None:
+    portfolio = Portfolio()
 
 @app.route('/')
 @app.route('/index')
