@@ -1,9 +1,3 @@
-"""
-Portfolio object
-
-This object will encapsulate a user's portfolio containing multiple holdings.
-"""
-
 class Portfolio:
     def __init__(self):
         """
@@ -19,13 +13,14 @@ class Portfolio:
         """
         self.holdings.append(holding)
 
-    def remove_holding(self, ticker):
+    def remove_holding_by_index(self, index):
         """
-        Remove a holding from the portfolio by its ticker symbol.
+        Remove a holding from the portfolio by its index.
 
-        :param ticker: str, the ticker symbol of the holding to remove
+        :param index: int, the index of the holding to remove
         """
-        self.holdings = [h for h in self.holdings if h.ticker != ticker]
+        if 0 <= index < len(self.holdings):
+            self.holdings.pop(index)
 
     def total_cost(self):
         """

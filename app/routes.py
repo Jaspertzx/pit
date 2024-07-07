@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from app import app
 from .util import is_connected
-from .util import DataReader
+from app.model.data_reader import DataReader
 from app.model.portfolio import Portfolio
 from app.model.holding import Holding
 
@@ -60,15 +60,15 @@ def add_holding():
     
     return jsonify([holding.__dict__ for holding in portfolio.holdings])
 
-@app.route('/portfolio/holding/<ticker>', methods=['DELETE'])
-def remove_holding(ticker):
+@app.route('/portfolio/holding/<int:index>', methods=['DELETE'])
+def remove_holding(index):
     """
-    Remove a holding from the portfolio by its ticker symbol.
+    Remove a holding from the portfolio by its index.
 
-    :param ticker: str, the ticker symbol of the holding to remove
+    :param index: int, the index of the holding to remove
     :return: JSON representation of the updated portfolio
     """
-    portfolio.remove_holding(ticker)
+    portfolio.remove_holding_by_index(index)
     return jsonify([holding.__dict__ for holding in portfolio.holdings])
 
 if __name__ == '__main__':
