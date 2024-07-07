@@ -2,6 +2,7 @@ import unittest
 import pandas as pd
 from app.model.holding import Holding
 from app.model.portfolio import Portfolio
+from app.model import DataReader
 
 import yfinance as yf
 yf.Ticker = lambda ticker: MockTicker()
@@ -30,7 +31,7 @@ class TestPortfolio(unittest.TestCase):
         self.assertIn(self.holding2, self.portfolio.holdings)
 
     def test_remove_holding(self):
-        self.portfolio.remove_holding("AAPL")
+        self.portfolio.remove_holding_by_index(0)
         self.assertEqual(len(self.portfolio.holdings), 1)
         self.assertNotIn(self.holding1, self.portfolio.holdings)
 

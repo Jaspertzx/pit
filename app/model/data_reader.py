@@ -1,15 +1,6 @@
-"""
-Data Reader
-
-This util library is made to read the data (pre-existing or not).
-This could be turned to fetch data from a server in the future, but 
-for this passion project, I'll stick with a local storage.
-"""
-
 import pickle
 import os
-from portfolio import Portfolio
-from holding import Holding
+from app.model import Holding, Portfolio
 
 class DataReader:
     def __init__(self, filename='portfolio_data.pkl'):
@@ -19,8 +10,8 @@ class DataReader:
         :param filename: str, the name of the file to store the portfolio data
         """
         script_dir = os.path.dirname(__file__)
-        data_dir = os.path.join(script_dir, '..', 'data')
-        os.makedirs(data_dir, exist_ok=True)
+        data_dir = os.path.join(script_dir, '..', 'data')  # Correct path to the data directory
+        os.makedirs(data_dir, exist_ok=True)  # Ensure the directory exists
         self.filename = os.path.join(data_dir, filename)
 
     def save_portfolio(self, portfolio):

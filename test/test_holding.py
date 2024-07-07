@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 import pandas as pd
 from app.model.holding import Holding
+from app.model import DataReader
 
 class TestHolding(unittest.TestCase):
     @patch('yfinance.Ticker')
